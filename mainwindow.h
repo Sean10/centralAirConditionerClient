@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QString>
 #include <QDateTime>
+#include <QTimer>
 //#include <QObject>
 
 //class centralAirConditioner;
@@ -35,6 +36,7 @@ signals:
 
 private:
     Ui::MainWindow *ui;
+    QTimer *timeRefresh;
 };
 
 #endif // MAINWINDOW_H

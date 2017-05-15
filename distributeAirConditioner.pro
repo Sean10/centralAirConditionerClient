@@ -25,12 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    centralairconditioner.cpp \
-    refreshthread.cpp
+    centralairconditioner.cpp
 
 HEADERS  += mainwindow.h \
-    centralairconditioner.h \
-    refreshthread.h
+    centralairconditioner.h
 
 FORMS    += mainwindow.ui
 

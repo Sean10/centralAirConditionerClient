@@ -15,6 +15,7 @@ void centralAirConditioner::Init()
 {
     temperature = 25;
     blowSpeed = LOWSPEED;
+    degree = 0;
     cost = 0;
     timeCount = 0;
 }
@@ -32,6 +33,11 @@ int centralAirConditioner::GetTemperature()
 double centralAirConditioner::GetCost()
 {
     return this->cost;
+}
+
+double centralAirConditioner::GetDegree()
+{
+    return this->degree;
 }
 
 int centralAirConditioner::ChangeTemperature(int tmp)
@@ -53,16 +59,19 @@ void centralAirConditioner::TimeStart()
 
 void centralAirConditioner::TimeStop()
 {
-    int time_diff = time.elapsed();
+    int time_diff = time.elapsed()/100;
     switch(blowSpeed)
     {
         case 0:
+            degree += time_diff;
             cost += time_diff * 0.01;
             break ;
         case 1:
+            degree += time_diff*2;
             cost += time_diff * 0.02;
             break;
         case 2:
+            degree += time_diff*3;
             cost += time_diff * 0.03;
             break;
         default:

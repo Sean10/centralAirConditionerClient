@@ -9,6 +9,8 @@
 #define MEDIUMSPEED 1
 #define HIGHSPEED 2
 
+
+
 class centralAirConditioner : public QObject
 {
     Q_OBJECT
@@ -18,6 +20,7 @@ public:
     int GetTemperature();
     int GetBlowSpeed();
     double GetCost();
+    double GetDegree();
     int ChangeTemperature(int tmp);
     int ChangeBlowSpeed(int tmp);
     void Init();
@@ -31,9 +34,12 @@ private:
     int temperature;
     int blowSpeed;
     unsigned long timeCount;
+    double degree;
     double cost;
 };
 
 //extern centralAirConditioner *airConditioner;
+extern centralAirConditioner airConditioner ;
+
 
 #endif // CENTRALAIRCONDITIONER_H
