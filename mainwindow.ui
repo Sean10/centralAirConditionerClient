@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>243</width>
-    <height>278</height>
+    <width>241</width>
+    <height>332</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,111 +18,199 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>30</y>
+      <y>110</y>
       <width>221</width>
-      <height>198</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="title">
-     <string>301</string>
+     <string/>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0" colspan="2">
-      <widget class="QLineEdit" name="lineEditTemperature">
-       <property name="text">
-        <string>温度</string>
-       </property>
-      </widget>
+    <widget class="QLabel" name="labelDegree">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>129</y>
+       <width>60</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBoxModel">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>96</y>
+       <width>81</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>制冷</string>
+      </property>
      </item>
-     <item row="0" column="2">
-      <widget class="QSpinBox" name="spinBoxTemperature"/>
+     <item>
+      <property name="text">
+       <string>制热</string>
+      </property>
      </item>
-     <item row="1" column="0" colspan="2">
-      <widget class="QLineEdit" name="lineEditBlowSpeed">
-       <property name="text">
-        <string>风速</string>
-       </property>
-      </widget>
+    </widget>
+    <widget class="QLabel" name="labelUnit2">
+     <property name="geometry">
+      <rect>
+       <x>89</x>
+       <y>129</y>
+       <width>16</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>度</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelCost">
+     <property name="geometry">
+      <rect>
+       <x>123</x>
+       <y>129</y>
+       <width>60</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelUnit">
+     <property name="geometry">
+      <rect>
+       <x>193</x>
+       <y>129</y>
+       <width>16</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>元</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonStart">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>158</y>
+       <width>68</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>开启</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBoxBlowSpeed">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>65</y>
+       <width>80</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>低速</string>
+      </property>
      </item>
-     <item row="1" column="2" colspan="2">
-      <widget class="QComboBox" name="comboBoxBlowSpeed">
-       <item>
-        <property name="text">
-         <string>低速</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>中速</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>高速</string>
-        </property>
-       </item>
-      </widget>
+     <item>
+      <property name="text">
+       <string>中速</string>
+      </property>
      </item>
-     <item row="2" column="0" colspan="2">
-      <widget class="QLineEdit" name="lineEditModel">
-       <property name="text">
-        <string>模式</string>
-       </property>
-      </widget>
+     <item>
+      <property name="text">
+       <string>高速</string>
+      </property>
      </item>
-     <item row="2" column="2" colspan="2">
-      <widget class="QComboBox" name="comboBoxModel">
-       <item>
-        <property name="text">
-         <string>制冷</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>制热</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="labelDegree">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="labelUnit2">
-       <property name="text">
-        <string>度</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="QLabel" name="labelCost">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="QLabel" name="labelUnit">
-       <property name="text">
-        <string>元</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QPushButton" name="pushButtonStart">
-       <property name="text">
-        <string>开启</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2" colspan="2">
-      <layout class="QHBoxLayout" name="horizontalLayout"/>
-     </item>
-    </layout>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>60</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>目标温度</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>60</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>风速</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>60</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>模式</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="spinBoxTemperature">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>40</y>
+       <width>68</width>
+       <height>24</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>60</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>室温</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelTemperature">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>10</y>
+       <width>60</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="labelTimeDate">
     <property name="geometry">
@@ -134,8 +222,100 @@
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>time</string>
     </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>51</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>用   户：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelUser">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>40</y>
+      <width>161</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelRoomNum">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>60</y>
+      <width>60</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>60</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>房间号：</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>224</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>最低：</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelLowTem">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>最高：</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelHighTem">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -143,12 +323,11 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>243</width>
+     <width>241</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

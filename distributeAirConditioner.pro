@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,11 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    centralairconditioner.cpp
+    centralairconditioner.cpp \
+    databasecontrol.cpp \
+    client.cpp
 
 HEADERS  += mainwindow.h \
-    centralairconditioner.h
+    centralairconditioner.h \
+    databasecontrol.h \
+    client.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dialoguserregister.ui
 
 DISTFILES +=
