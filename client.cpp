@@ -4,21 +4,30 @@
 client::client(QObject *parent):
     QTcpServer (parent)
 {
+    qDebug() << "client init";
     socket = new QTcpSocket();
     connect(socket, SIGNAL(readyRead()), this, SLOT(RevInitData()));
-
+    //Login("123","1234");
 }
 
 void client::Login(QString user, QString roomNum)
 {
-    socket->connectToHost("10.211.15.36", 6666);
-    if (socket->waitForConnected(1000))
+    qDebug() << __func__ << "is running";
+    //socket->connectToHost("10.8.202.11", 6666);
+    socket->connectToHost(QHostAddress("127.0.0.1"), 6666);
+    qDebug() << socket->errorString();
+    if (socket->waitForConnected(100))
     {
+        //qDebug() << "error2";
+        checkConnect = 1;
         QString a = "clientMsg/"+roomNum+"/"+user;
         socket->write(a.toLatin1());
+        //qDebug() << "socket success!";
     }
     else
     {
+        checkConnect = 2;
+        QMessageBox::warning(NULL,"warning","连接超时/失败");
         qDebug() << "socket timeout!";
     }
 }
@@ -32,22 +41,32 @@ void client::RevInitData()
     int workModel = QString(list[1]).toInt();
     float lowTem = QString(list[2]).toFloat();
     float highTem = QString(list[3]).toFloat();
+    airConditioner.SetLowTemp(lowTem);
+    airConditioner.SetHighTemp(highTem);
+    airConditioner.SetWorkModel(workModel);
+
+    qDebug() << workModel << lowTem << highTem;
 
     disconnect(socket, SIGNAL(readyRead()), this, SLOT(RevInitData()));
-    connect(socket, SIGNAL(readRead()), this, SLOT(RevData()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(RevData()));
     emit TransMainWindow(workModel, lowTem, highTem);
 }
 
 void client::RevData()
 {
     QString datas = socket->readAll();
+    emit SignalRefresh();
     qDebug() << datas;
     QStringList list = datas.split("/");
 
 
     if(QString::compare(QString(list[0]),"cost")==0)
     {
-        emit RefreshCost(QString(list[1]),QString(list[2]));
+        //emit RefreshCost(QString(list[1]),QString(list[2]));
+        qDebug() << "Get cost" << list[1] << list[2];
+        airConditioner.SetDegree(list[1].toInt());
+        airConditioner.SetCost(list[2].toFloat());
+        qDebug() << airConditioner.GetDegree() << airConditioner.GetCost();
     }
     if(QString::compare(QString(list[0]),"request")==0)
     {
@@ -73,6 +92,19 @@ void client::SendRequestEnd()
 
 void client::SendRequest()
 {
-    QString a="request";
+    QString a="request/"+QString::number(airConditioner.GetTemperature(), 'f', 2)+"/"+QString::number(airConditioner.GetWorkTemperature(), 'f', 2);
+    socket->write(a.toLatin1());
+}
+
+void client::Logout()
+{
+    socket->abort();
+    socket->close();
+}
+
+void client::SendBlowSpeed()
+{
+    //不应该从BlowSpeed那里发送，因为需要得到主控机回复的acceptWind才可以切换应该
+    QString a = "wind/" + QString::number(airConditioner.GetTargetBlowSpeed(), 10);
     socket->write(a.toLatin1());
 }

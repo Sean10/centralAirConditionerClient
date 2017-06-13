@@ -23,16 +23,26 @@ public:
     float GetTemperature();
     float GetWorkTemperature();
     int GetBlowSpeed();
+    int GetTargetWorkModel();
+    int GetTargetBlowSpeed();
     float GetCost();
     int GetDegree();
     void SetUser(const QString&);
     void SetRoomNum(const QString&);
+    void SetWorkModel(const int&);
+    void SetLowTemp(const float&);
+    void SetHighTemp(const float&);
+    void SetTargetWorkModel(const int &);
+    void SetTargetBlowSpeed(const int &);
+    void SetBlowSpeed(const int&);
+    void SetDegree(const int&);
+    void SetCost(const float&);
     QString GetUser();
     QString GetRoomNum();
     int GetWorkModel();
     float GetLowTem();
     float GetHighTem();
-    void ChangeWorkTemperature(float tmp);
+
     int ChangeBlowSpeed(int tmp);
     void Init();
     bool Check();
@@ -42,17 +52,19 @@ public:
 
 public slots:
     void ChangeTemperature();
-    void TimeStart();
-    void TimeStop();
     void RevState(int, float, float);
     void RevCost(QString, QString);
     void DataNormalRefresh();
     void SendSignalRequest();
     void ChangeBlowSpeed(); //这个似乎需要传入主控机发来的包吧，但是他的代码里没有。
+    void ChangeWorkTemperature(float tmp);
+    //void ChangeWorkModel(int);
 
 signals:
     void SignalRequestEnd();
     void SignalRequest();
+    void SignalBlowSpeed();
+    void SignalInit();
 
 
 private:
@@ -60,9 +72,11 @@ private:
     QString roomNum;
     float temperature;
     float workTemperature;
+    int targetBlowSpeed;
+    int targetWorkModel;
     int blowSpeed;
     unsigned long timeCount;
-    int degree; //能量总数
+    float degree; //能量总数
     float cost;
 
     int workModel;
@@ -75,6 +89,6 @@ private:
 
 //extern centralAirConditioner *airConditioner;
 extern centralAirConditioner airConditioner ;
-
+extern int checkConnect;//初始状态为0，1位连通，2位未连通
 
 #endif // CENTRALAIRCONDITIONER_H

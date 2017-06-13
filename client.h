@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QString>
 #include <QDebug>
+#include <QMessageBox>
 
 class client : public QTcpServer
 {
@@ -18,12 +19,15 @@ public slots:
     void Login(QString user, QString roomNum);
     void SendRequestEnd();
     void SendRequest();
+    void SendBlowSpeed();
+    void Logout();
 
 signals:
     void TransMainWindow(int, float, float);
     void RefreshCost(QString, QString);
     void SignalChangeTemperature();
     void SignalChangeBlowSpeed();
+    void SignalRefresh();
 
 private:
     //QTcpSocket *GetSocket();
