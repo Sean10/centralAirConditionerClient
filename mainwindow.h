@@ -28,8 +28,10 @@ public:
     int GetWorkModelNum(const QString&);
     QString GetWorkModelString(const int&);
 
+
 public slots:
     void Refresh();
+    void ShowConnect();
 
 private slots:
     void Init();
@@ -40,8 +42,6 @@ private slots:
 
 
     void OnPushButtonStartClicked();
-
-    void on_comboBoxModel_currentIndexChanged(const QString &arg1);
 
     void on_comboBoxBlowSpeed_currentIndexChanged(const QString &arg1);
 

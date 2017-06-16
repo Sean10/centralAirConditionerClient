@@ -6,12 +6,15 @@
 #include <QString>
 #include <QDebug>
 #include <QMessageBox>
+#include <QRegExp>
 
 class client : public QTcpServer
 {
     Q_OBJECT
 public:
     client(QObject *parent = 0);
+    QTcpSocket *GetSocket();
+
     //void Login(QString user, QString roomNum);
 public slots:
     void RevInitData();

@@ -6,6 +6,7 @@
 
 centralAirConditioner airConditioner ;
 int checkConnect;
+int temperatureState;
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +14,7 @@ int main(int argc, char *argv[])
     client *x = new client;
     MainWindow *w= new MainWindow;;
 
+    temperatureState = 0;
     checkConnect = 0;
     //QThread *thread = new QThread(x);
     //x->moveToThread(thread);
@@ -41,6 +43,9 @@ int main(int argc, char *argv[])
     //databaseControl database;
     QObject::connect(w, SIGNAL(SignalLogout()), x, SLOT(Logout()));
     QObject::connect(x, SIGNAL(SignalRefresh()), w, SLOT(Refresh()));
+
+    //QObject::connect(x->GetSocket(), SIGNAL(connected()), w, SLOT(ShowConnect()));
+    QObject::connect(x->GetSocket(), SIGNAL(disconnectFromHost()), w, SLOT(ShowConnect()));
 
     if(!w->UserRegister())
     {

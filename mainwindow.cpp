@@ -10,18 +10,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("中央空调从控机");
-    //this->setCentralWidget(ui->widgetMain);
-    //central不能这样用
-    //this->hide();
-//    if(!UserRegister())
-//    {
-//        this->close();
-//        //this->hide();
-//        //待修正关闭事件
-//    }
-    //Init();
-    //ui->widgetInfo->setAttribute(Qt::WA_ShowModal, true);
-    //Init();
 
     ui->statusBar->addWidget(ui->labelStatus);
     ui->labelStatus->setText(tr("欢迎使用中央空调！"));
@@ -104,7 +92,6 @@ void MainWindow::OnPushButtonStartClicked()
             ui->widgetInfo->show();
         }
 
-
         //开启从控机
 
     }
@@ -112,6 +99,7 @@ void MainWindow::OnPushButtonStartClicked()
     {
         ui->pushButtonStart->setText(tr("开机"));
         ui->widgetInfo->hide();
+        checkConnect = 0;
         emit SignalLogout();
         //关闭从控机
     }
@@ -140,7 +128,13 @@ void MainWindow::Init()
 //    QString strTime = time.toString("yyyy-MM-dd hh:mm:ss dddd");
 //    ui->labelTimeDate->setText(strTime);
 
-    ui->labelTemperature->setText(QString::number(airConditioner.GetTemperature(), 'f', 2));
+    //ui->labelTemperature->setText(QString::number(airConditioner.GetTemperature(), 'f', 2));
+    //ui->labelTemperature->
+    ui->labelConnect->setText("online");
+
+    ui->labelTemperature->setDecMode();
+    ui->labelTemperature->setDigitCount(5);
+    ui->labelTemperature->display(QString::number(airConditioner.GetTemperature()));
 
     ui->spinBoxTemperature->setValue(int(airConditioner.GetWorkTemperature()));
     ui->spinBoxTemperature->setMinimum(airConditioner.GetLowTem());
@@ -154,8 +148,9 @@ void MainWindow::Init()
     ui->labelRoomNum->setText(airConditioner.GetRoomNum());
 
     ui->comboBoxBlowSpeed->setCurrentIndex(airConditioner.GetTargetBlowSpeed());
-    ui->comboBoxModel->setCurrentIndex(airConditioner.GetTargetWorkModel());
+    //ui->comboBoxModel->setCurrentIndex(airConditioner.GetTargetWorkModel());
     ui->labelWorkModel->setText(GetWorkModelString(airConditioner.GetWorkModel()));
+    //qDebug() << "show my workModel" << airConditioner.GetTargetWorkModel();
     ui->labelBlowSpeed->setText(GetBlowSpeedString(airConditioner.GetBlowSpeed()));
 
     ui->labelLowTem->setText(QString::number(airConditioner.GetLowTem(), 'f', 2));
@@ -184,16 +179,18 @@ void MainWindow::Refresh()
 
     ui->comboBoxBlowSpeed->setCurrentIndex(airConditioner.GetTargetBlowSpeed());
     ui->labelBlowSpeed->setText(GetBlowSpeedString(airConditioner.GetBlowSpeed()));
-    ui->comboBoxModel->setCurrentIndex(airConditioner.GetTargetWorkModel());
+    //ui->comboBoxModel->setCurrentIndex(airConditioner.GetTargetWorkModel());
     ui->labelWorkModel->setText(GetWorkModelString(airConditioner.GetWorkModel()));
 
     ui->labelLowTem->setText(QString::number(airConditioner.GetLowTem(), 'f', 2));
     ui->labelHighTem->setText(QString::number(airConditioner.GetHighTem(), 'f', 2));
 
     ui->spinBoxTemperature->setValue(airConditioner.GetWorkTemperature());
-    ui->comboBoxModel->setCurrentIndex(airConditioner.GetWorkModel());
+    //ui->comboBoxModel->setCurrentIndex(airConditioner.GetWorkModel());
     ui->comboBoxBlowSpeed->setCurrentIndex(airConditioner.GetBlowSpeed());
-    ui->labelTemperature->setText(QString::number(airConditioner.GetTemperature()));
+    //ui->labelTemperature->setText(QString::number(airConditioner.GetTemperature()));
+    ui->labelTemperature->display(QString::number(airConditioner.GetTemperature()));
+
     ui->labelDegree->setText(QString::number(airConditioner.GetDegree()));
     ui->labelCost->setText(QString::number(airConditioner.GetCost()));
 }
@@ -259,12 +256,6 @@ QString MainWindow::GetWorkModelString(const int& tmp)
     }
 }
 
-void MainWindow::on_comboBoxModel_currentIndexChanged(const QString &arg1)
-{
-    airConditioner.SetWorkModel(GetWorkModelNum(arg1));
-    airConditioner.SetTargetWorkModel(GetWorkModelNum(arg1));
-}
-
 void MainWindow::on_comboBoxBlowSpeed_currentIndexChanged(const QString &arg1)
 {
     airConditioner.SetTargetBlowSpeed(GetBlowSpeedNum(arg1));
@@ -273,6 +264,18 @@ void MainWindow::on_comboBoxBlowSpeed_currentIndexChanged(const QString &arg1)
 
 void MainWindow::on_spinBoxTemperature_valueChanged(int arg1)
 {
-    qDebug() << __func__ << airConditioner.GetTemperature() << airConditioner.GetWorkTemperature();
+    //qDebug() << __func__ << airConditioner.GetTemperature() << airConditioner.GetWorkTemperature();
     airConditioner.ChangeWorkTemperature(float(arg1));
+}
+
+void MainWindow::ShowConnect()
+{
+    if(ui->labelConnect->text() == "offline")
+    {
+        ui->labelConnect->setText("online");
+    }
+    else if(ui->labelConnect->text() == "online")
+    {
+        ui->labelConnect->setText("offline");
+    }
 }

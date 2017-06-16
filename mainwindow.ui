@@ -69,11 +69,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="labelTemperature">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
+         <widget class="QLCDNumber" name="labelTemperature"/>
         </item>
        </layout>
       </item>
@@ -277,37 +273,10 @@
       <item row="2" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout_8">
         <item>
-         <widget class="QLabel" name="label_5">
+         <widget class="QLabel" name="labelConnect">
           <property name="text">
-           <string>模式</string>
+           <string>TextLabel</string>
           </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QComboBox" name="comboBoxModel">
-          <item>
-           <property name="text">
-            <string>制冷</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>制热</string>
-           </property>
-          </item>
          </widget>
         </item>
        </layout>

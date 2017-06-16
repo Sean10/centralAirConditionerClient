@@ -7,10 +7,12 @@
 #include <QString>
 #include <QTimer>
 #include <QtMath>
+#include <QLCDNumber>
 
 #define LOWSPEED 0
 #define MEDIUMSPEED 1
 #define HIGHSPEED 2
+
 
 
 
@@ -21,12 +23,12 @@ public:
     centralAirConditioner();
     ~centralAirConditioner();
     float GetTemperature();
-    float GetWorkTemperature();
+    int GetWorkTemperature();
     int GetBlowSpeed();
     int GetTargetWorkModel();
     int GetTargetBlowSpeed();
     float GetCost();
-    int GetDegree();
+    float GetDegree();
     void SetUser(const QString&);
     void SetRoomNum(const QString&);
     void SetWorkModel(const int&);
@@ -35,7 +37,7 @@ public:
     void SetTargetWorkModel(const int &);
     void SetTargetBlowSpeed(const int &);
     void SetBlowSpeed(const int&);
-    void SetDegree(const int&);
+    void SetDegree(const float&);
     void SetCost(const float&);
     QString GetUser();
     QString GetRoomNum();
@@ -71,7 +73,7 @@ private:
     QString user;
     QString roomNum;
     float temperature;
-    float workTemperature;
+    int workTemperature;
     int targetBlowSpeed;
     int targetWorkModel;
     int blowSpeed;
@@ -85,10 +87,13 @@ private:
 
     //发送复用信号
     int sendMux;
+
+    QTimer *timerTmp;
 };
 
 //extern centralAirConditioner *airConditioner;
 extern centralAirConditioner airConditioner ;
 extern int checkConnect;//初始状态为0，1位连通，2位未连通
+extern int temperatureState;
 
 #endif // CENTRALAIRCONDITIONER_H
