@@ -19,7 +19,7 @@ void client::Login(QString user, QString roomNum)
     if (socket->waitForConnected(100))
     {
         //qDebug() << "error2";
-        checkConnect = 1;
+        //fcheckConnect = 1;
         QString a = "clientMsg/"+roomNum+"/"+user;
         socket->write(a.toLatin1());
         //qDebug() << "socket success!";
@@ -37,19 +37,26 @@ void client::RevInitData()
     QString data = socket->readAll();
     qDebug() << data;
     QStringList list = data.split('/');
-
+    if(data.size() <= 16)
+    {
+        checkConnect = 0;
+        QMessageBox::warning(NULL,"warning","登陆失败");
+    }
+    else
+    {
+        checkConnect = 1;
     int workModel = QString(list[1]).toInt();
     float lowTem = QString(list[2]).toFloat();
     float highTem = QString(list[3]).toFloat();
     airConditioner.SetLowTemp(lowTem);
     airConditioner.SetHighTemp(highTem);
     airConditioner.SetWorkModel(workModel);
-
     //qDebug() << workModel << lowTem << highTem;
 
     disconnect(socket, SIGNAL(readyRead()), this, SLOT(RevInitData()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(RevData()));
     emit TransMainWindow(workModel, lowTem, highTem);
+    }
 }
 
 void client::RevData()
@@ -59,7 +66,10 @@ void client::RevData()
     qDebug() << datas;
     QStringList list = datas.split("/");
 
+    //QString tmp = ""
+    //QRegExp rx();
 
+    datas.contains("answer");
     if(QString::compare(QString(list[0]),"cost")==0)
     {
         //emit RefreshCost(QString(list[1]),QString(list[2]));

@@ -35,50 +35,58 @@ void centralAirConditioner::Init()
     dataRefresh->start(1000);
     //
     connect(dataRefresh, SIGNAL(timeout()), this, SLOT(DataNormalRefresh()));
+
+//    QTimer timerCheck;
+//    timerCheck.start(1000);
+//    connect(&timerCheck, SIGNAL(timeout()), this, SLOT(Check()));
 }
 
 void centralAirConditioner::DataNormalRefresh()
 {
+    qDebug() << "sendMux: " << sendMux;
     if(sendMux==0)
     {
 
-        if(workModel == 0 && (temperature - workTemperature) > 0 && (temperature - workTemperature) < 1.0) //制冷模式 房间温度高 但没超过1度
-        {
-            TransTemperature(0, 0.1);
-            //ChangeTemperature();
-            //qDebug() << "trans temperature" << temperature << workTemperature;
-        }
-        else if(workModel == 0 && (temperature-workTemperature)>1.0) //制冷模式 房间温度高 超过1度
+//        if(workModel == 0 && (temperature - workTemperature) > 0 && (temperature - workTemperature) < 1.0) //制冷模式 房间温度高 但没超过1度
+//        {
+//            //TransTemperature(0, 0.1);
+//            //ChangeTemperature();
+//            //qDebug() << "trans temperature" << temperature << workTemperature;
+//        }
+        if(workModel == 0 && (temperature-workTemperature)>=1.0) //制冷模式 房间温度高 超过1度
         {
             //TransTemperature(0, 0.1);
             //ChangeTemperature();
+            sendMux = 2;
+            emit SignalRequest();
             //qDebug() << "trans temperature" << temperature << workTemperature;
-            ;
         }
-        else if(workModel == 0 && (workTemperature-temperature)>0.0) //制冷模式 房间温度低
+        else if(workModel == 0 && (temperature-workTemperature) < 1.0)//(workTemperature-temperature) > -1.0) //制冷模式 房间温度低
         {
-            TransTemperature(1, 0.1);
-            //qDebug() << "trans temperature" << temperature << workTemperature;
-        }
 
-        else if(workModel == 1 &&(temperature-workTemperature)>0.0) //制热模式 房间温度高
+            TransTemperature(1, 0.1);
+            qDebug() << "trans temperature 0model" << temperature << workTemperature;
+        }
+        else if(workModel == 1 &&(workTemperature-temperature) < 1.0)//(temperature-workTemperature)> -1.0) //制热模式 房间温度高
         {
             TransTemperature(0, 0.1);
             //qDebug() << "trans temperature" << temperature << workTemperature;
         }
-        else if(workModel == 1 && (workTemperature-temperature)<1.0 && (workTemperature - temperature > 0)) //制热模式 房间温度低 没超过过1度
-        {
-            TransTemperature(1,0.1);
-            //ChangeTemperature();
-            //qDebug() << "trans temperature" << temperature << workTemperature;
-        }
+//        else if(workModel == 1 && (workTemperature-temperature)<1.0 && (workTemperature - temperature > 0)) //制热模式 房间温度低 没超过过1度
+//        {
+//            //TransTemperature(1,0.1);
+//            //ChangeTemperature();
+
+//            //qDebug() << "trans temperature" << temperature << workTemperature;
+//        }
         else if(workModel == 1 && (workTemperature-temperature)>1.0) //制热模式 房间温度低 超过1度
         {
-            ;
+             sendMux = 2;
+             emit SignalRequest();
             //ChangeTemperature();
             //qDebug() << "trans temperature" << temperature << workTemperature;
         }
-    }
+   }
 }
 
 void centralAirConditioner::TransTemperature(int mode, float delta)
@@ -87,10 +95,14 @@ void centralAirConditioner::TransTemperature(int mode, float delta)
     if(mode == 0)
     {
         temperature -= delta;
+//        if(temperature - workTemperature >= 1.0)
+//            sendMux = 2;
     }
     else
     {
         temperature += delta;
+//        if(workTemperature - temperature >= 1.0)
+//            sendMux = 2;
     }
 }
 
@@ -227,6 +239,7 @@ void centralAirConditioner::ChangeWorkTemperature(float tmp)
             }
             else
             {
+                qDebug() << "sendMux ChangeWorkTemperature" << sendMux;
                 sendMux=0;
             }
             //qDebug() << __func__ << "1" << temperature << workTemperature;
@@ -258,7 +271,7 @@ void centralAirConditioner::ChangeTemperature()
 
     if(workModel == 1)
         temperature += delta;
-
+    qDebug() << "sendMux" << sendMux;
 
     if(sendMux == 2 && Check() == false)
     {
@@ -276,7 +289,7 @@ void centralAirConditioner::ChangeTemperature()
 
 bool centralAirConditioner::Check()
 {
-    if((workModel == 0 && temperature <= workTemperature) || (workModel == 1 && temperature >= workTemperature))
+    if((workModel == 0 && temperature- workTemperature <= 0.0) || (workModel == 1 && temperature - workTemperature >= 0.0))
     {
         if(temperatureState == 1)
         {
